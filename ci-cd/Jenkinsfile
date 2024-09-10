@@ -14,7 +14,7 @@ pipeline {
     }
     stage('build & push & run') {
       steps {
-        sh "cd flask"
+        sh "cd ci-cd/flask"
         sh "ls"
       }
     }
