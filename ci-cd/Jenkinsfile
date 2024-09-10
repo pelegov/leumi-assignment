@@ -4,6 +4,7 @@ pipeline {
     COMMIT = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
     DOCKER_REPOSITORY = ""
     BRANCH = "main"
+    FOLDER = "ci-cd/flask"
     TAG = ""
   }
   stages {
@@ -15,7 +16,7 @@ pipeline {
     stage('build & push & run') {
       steps {
         sh "cd ci-cd/flask"
-        sh "ls"
+        sh "ls $FOLDER"
       }
     }
   }
