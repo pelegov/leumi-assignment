@@ -2,10 +2,10 @@ pipeline {
   agent any
   environment {
     COMMIT = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
-    DOCKER_REPOSITORY = ""
+    DOCKER_REPOSITORY = "pelegov"
     BRANCH = "main"
     FOLDER = "ci-cd/flask"
-    TAG = ""
+    IMAGE_NAME = "leumi"
   }
   stages {
     stage('Git pull') {
@@ -15,8 +15,14 @@ pipeline {
     }
     stage('build & push & run') {
       steps {
-        sh "cd ci-cd/flask"
         sh "ls $FOLDER"
+        sh "docker build -t $DOCKER_REPOSITORY/$IMAGE_NAME:$COMMIT $FOLDER"
+        sh "docker push $DOCKER_REPOSITORY/$IMAGE_NAME:$COMMIT"
+      }
+    }
+    stage('Run Docker Container') {
+      steps {
+        sh "docker run -d -p 5000:5000 $DOCKER_REPOSITORY/$IMAGE_NAME:$COMMIT"
       }
     }
   }
