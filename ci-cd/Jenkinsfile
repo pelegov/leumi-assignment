@@ -3,18 +3,18 @@ pipeline {
   environment {
     COMMIT = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
     DOCKER_REPOSITORY = ""
-    FOLDER = ""
-    BRANCH = ""
+    BRANCH = "main"
     TAG = ""
   }
   stages {
     stage('Git pull') {
       steps {
-        sh "ls"
+        sh "git pull origin $BRANCH"
       }
     }
     stage('build & push & run') {
       steps {
+        sh "cd flask"
         sh "ls"
       }
     }
