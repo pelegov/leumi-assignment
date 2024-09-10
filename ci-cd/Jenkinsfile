@@ -18,11 +18,6 @@ pipeline {
         sh "ls"
       }
     }
-    stage ('POST Portainer') {
-      steps {
-        sh "curl -k -X POST $UPDATE_SERVICE"
-      }
-    }        
   }
   post {  
     failure {  
