@@ -1,0 +1,35 @@
+pipeline {
+  agent any
+  environment {
+    COMMIT = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+    DOCKER_REPOSITORY = ""
+    FOLDER = ""
+    BRANCH = ""
+    TAG = ""
+  }
+  stages {
+    stage('Git pull') {
+      steps {
+        sh "ls"
+      }
+    }
+    stage('build & push & run') {
+      steps {
+        sh "ls"
+      }
+    }
+    stage ('POST Portainer') {
+      steps {
+        sh "curl -k -X POST $UPDATE_SERVICE"
+      }
+    }        
+  }
+  post {  
+    failure {  
+      sh "echo Sending Failed Email!"
+        emailext body: '${DEFAULT_CONTENT} - CI/CD Pipeline has been failed!',
+        subject: '${DEFAULT_SUBJECT} - CI/CD pipeline failed!',
+        mimeType: 'text/html',to: ''
+    } 
+  }
+}
