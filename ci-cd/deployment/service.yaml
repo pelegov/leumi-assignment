@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: flask-app-service
 spec:
-  type: NodePort
+  type: nodePort
   selector:
     app: nave-flask
   ports:
@@ -11,7 +11,9 @@ spec:
       port: 80
       targetPort: 5000
       nodePort: 30000
+      name: http
     - protocol: TCP
       port: 443
       targetPort: 5000
-      nodePort: 30001  
+      nodePort: 30001
+      name: https
