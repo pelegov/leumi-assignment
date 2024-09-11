@@ -8,12 +8,7 @@ spec:
     app: nave-flask
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 5000
-      nodePort: 30000
-      name: http
-    - protocol: TCP
       port: 443
       targetPort: 5000
       nodePort: 30001
-      name: https
+      name: http
