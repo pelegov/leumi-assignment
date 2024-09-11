@@ -5,7 +5,7 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: flask-app
+    app: nave-flask
   ports:
     - protocol: TCP
       port: 443
