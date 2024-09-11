@@ -40,7 +40,7 @@ pipeline {
     stage('Deploy to Minikube') {
       steps {
         sh """
-        sed -i 's|REPLACE_IMAGE|$DOCKER_REPOSITORY/$IMAGE_NAME:$COMMIT|g' ci-cd/deployment/deployment.yaml
+        sed -i '' 's|REPLACE_IMAGE|$DOCKER_REPOSITORY/$IMAGE_NAME:$COMMIT|g' ci-cd/deployment/deployment.yaml
         kubectl apply -f ci-cd/deployment/deployment.yaml
         kubectl apply -f ci-cd/deployment/service.yaml
         """
