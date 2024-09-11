@@ -18,4 +18,4 @@ spec:
       - name: nave-flask
         image: REPLACE_IMAGE
         ports:
-        - containerPort: 5001
+        - containerPort: 5000
