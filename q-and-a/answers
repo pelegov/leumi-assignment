@@ -1,0 +1,22 @@
+## Answers
+
+### 2.
+#### 2.a
+1. **Ping directly to an IP address** (e.g., `ping 8.8.8.8`). This verifies if there is connectivity, indicating the issue is likely with DNS resolution.
+2. **Ping a DNS address** (e.g., `ping google.com`) to isolate whether the problem is with DNS.
+3. **Check `/etc/resolv.conf`** to ensure the nameservers are properly configured. In AWS, verify that the DHCP options set is redirecting the server to the correct DNS server (e.g., Route 53).
+4. **Check Security Group (SG) and NACL rules**, ensuring port 53 is open for DNS traffic.
+5. **Verify the route table** is correctly configured and allows outbound traffic.
+
+#### 2.b
+1. **Check the NAT Gateway and EC2 instance**, ensuring they are in the same VPC but different subnets. The NAT Gateway should be in the Public subnet, and the EC2 instance in the Private subnet. The NAT must be associated with an Internet Gateway (IG).
+2. **Check SG & NACL rules** to ensure they allow appropriate traffic.
+3. **Verify the Route table** to confirm it routes traffic correctly through the NAT Gateway (for Private subnet) or the Internet Gateway (for Public subnet).
+
+#### 2.c
+1. **Pull Access Denied**: Ensure you are logged in to the private registry with `docker login` using the correct username and password.
+2. **Container Pull Timeout**: This may indicate a connectivity issue between VPCs. Verify that the Transit Gateway (TGW) and route tables are correctly configured.
+3. **Docker Daemon is Not Running**: Check if Docker is running with `systemctl status docker`. If it’s not running, start and enable it with:
+   ```bash
+   sudo systemctl start docker
+   sudo systemctl enable docker
