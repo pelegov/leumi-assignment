@@ -7,7 +7,7 @@ provider "aws" {
 resource "aws_security_group" "sg_test_ec2" {
   name        = "test_ec2_sg"
   description = "Allow HTTP traffic from specific IP"
-  vpc_id      = "<your-vpc-id>"
+  vpc_id      = aws_vpc.selected_vpc.id
 
   ingress {
     from_port   = 80
@@ -59,4 +59,11 @@ resource "aws_instance" "test_ec2" {
 resource "aws_eip_association" "eip_assoc" {
   instance_id   = aws_instance.test_ec2.id
   allocation_id = aws_eip.vip_eip.id
+}
+
+data "aws_vpc" "selected_vpc" {
+  filter {
+    name   = "tag:Name"
+    values = ["TEST-SPOKE-VPC"]
+  }
 }
